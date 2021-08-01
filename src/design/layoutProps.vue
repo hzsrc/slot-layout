@@ -123,7 +123,6 @@
                     })
             },
             resetLayout() {
-                debugger
                 this.parentCompo.resetLayout()
             },
             changeFill(isFill) {
