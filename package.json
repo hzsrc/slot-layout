@@ -1,0 +1,96 @@
+{
+  "name": "slot-layout",
+  "version": "1.0.1",
+  "description": "A useful and easy layout component",
+  "private": true,
+  "scripts": {
+    "build": "cross-env NODE_ENV=production ENV_CONFIG=prod node build/build.js"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "element-ui": "2.4.5",
+    "vue": "2.6.10",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/plugin-syntax-jsx": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-stage-2": "^7.0.0",
+    "@babel/register": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.0.0",
+    "@vue/babel-plugin-transform-vue-jsx": "^1.1.2",
+    "autoprefixer": "^9.7.3",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-component": "^1.1.1",
+    "chalk": "^2.4.2",
+    "connect-history-api-fallback": "^1.6.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "core-js": "^3.6.0",
+    "cross-env": "^6.0.3",
+    "cross-spawn": "^7.0.1",
+    "css-loader": "^3.4.0",
+    "dynamic-mocker": "^1.2.15",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-friendly-formatter": "4.0.1",
+    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-node": "10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "eslint-plugin-vue": "^6.0.1",
+    "eventsource-polyfill": "^0.9.6",
+    "express": "^4.17.1",
+    "file-loader": "^5.0.2",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "opn": "^6.0.0",
+    "optimize-css-map-webpack-plugin": "^5.0.2",
+    "ora": "^4.0.3",
+    "postcss-loader": "^3.0.0",
+    "postcss-pxtorem": "^4.0.1",
+    "rimraf": "^2.6.3",
+    "sass": "^1.24.0",
+    "sass-loader": "^7",
+    "shelljs": "^0.8.3",
+    "url-loader": "^2",
+    "vue-loader": "^15.8.3",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.41.4",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "license": "MIT",
+  "readme": "README.md",
+  "keywords": [],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "author": {
+    "name": "James.Huang",
+    "email": "hz932@qq.com",
+    "url": "http://www.hz300.com/slot-layout/"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "src",
+    "dist"
+  ]
+}
