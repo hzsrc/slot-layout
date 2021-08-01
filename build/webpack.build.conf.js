@@ -21,7 +21,8 @@ var pagesPath = path.resolve(__dirname, '../src')
 var entry = {
     index: pagesPath + '/slotLayout.vue',
     hzLayoutNode: pagesPath + '/hzLayoutNode.vue',
-    slotLayoutDesign: pagesPath + '/design/layoutDesigner.vue',
+    layoutDesign: pagesPath + '/design/layoutDesigner.vue',
+    sample: pagesPath + '/sample.vue',
 }
 var webpackConfig = merge(baseWebpackConfig, {
     entry,

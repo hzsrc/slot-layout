@@ -53,7 +53,7 @@
 </template>
 
 <script>
-    import msg from '../../../../js/utils/msgDialog'
+    import msg from './msgDialog'
 
     export default {
         props: {

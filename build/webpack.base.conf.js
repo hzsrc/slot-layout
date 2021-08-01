@@ -20,9 +20,8 @@ module.exports = {
         }
     },
     externals: {
-        'vue': 'Vue',
-        // 'vue-router': 'VueRouter',
-        'element-ui': 'ELEMENT',
+        // 'vue': 'Vue',
+        // 'element-ui': 'ELEMENT',
         'axios': 'axios',
     },
     module: {
