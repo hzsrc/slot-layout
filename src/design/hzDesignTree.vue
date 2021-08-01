@@ -1,21 +1,14 @@
 <template>
-    <div class="hz-layout">
-        <div>
-            <hz-layout-node
-                    class="dz-layout"
-                    :layout="layout"
-                    v-on="$listeners"
-            >
-            </hz-layout-node>
+    <slot-layout class="dz-layout pd-10" :layout="layout" gulp="5px">
+        <div slot-scope="{layout}" class="full" @click.stop="selectArea(layout)">
+            <div class="full flex-center flex-column">
+                <div>{{layout.slot}}</div>
+            </div>
         </div>
-        <!--        <picture-preview ref="preview1"></picture-preview>-->
-    </div>
+    </slot-layout>
 </template>
 <script>
-    import Vue from 'vue'
-    import DesignArea from './designArea';
-
-    Vue.component('DesignArea', DesignArea)
+    import slotLayout from '../slotLayout.vue';
 
     export default {
         props: {
@@ -24,39 +17,29 @@
         },
         methods: {
             publicGetResult() {
-                const root = this.$x.clone(this.layout, true)
+                const root = JSON.parse(JSON.stringify(this.layout))
                 const enumTree = (layout) => {
                     if (layout.children) {
                         layout.children.map(enumTree)
                     }
                     if (layout.laySize.indexOf('calc') > -1) layout.laySize = 'fill'
+                    if (layout.ctnCls) layout.ctnCls = layout.ctnCls.replace(/(area_selected|child_selected)/g, '')
+                    if (!layout.ctnCls || !layout.replace(/ /g, '')) delete layout.ctnCls
                 }
                 enumTree(root)
                 return root
-            }
+            },
+            selectArea(layout) {
+                this.$emit('selectArea', layout)
+            },
         },
+        components: {
+            slotLayout
+        }
     }
 </script>
 
 <style scoped lang="scss">
-
-    $gulp-width: 7px;
-    .hz-layout {
-        overflow: visible;
-
-        //消除四周占用的padding
-        > div {
-            margin: -$gulp-width;
-            height: calc(100% + #{$gulp-width} * 2);
-        }
-
-        ::v-deep {
-            .pl-padding {
-                padding: $gulp-width;
-            }
-        }
-    }
-
     .dz-layout ::v-deep {
         .compo-wrap {
             border: 1px solid #ddd;

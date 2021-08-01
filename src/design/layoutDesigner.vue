@@ -9,9 +9,10 @@
             >
             </hz-design-tree>
             <aside v-if="curLayout">
-                <h3>调整布局 - {{curArea}}</h3>
+                <h3>调整布局 - {{curSlot}}</h3>
                 <layout-props :layout="curLayout" :parentLayout="parentLayout" class="lay-props"/>
-                <!--<debug-info :info="curLayout" style="left:0;color:red"></debug-info>-->
+                <textarea v-if="showResult" v-html="JSON.stringify(getResult(), 0,3)" class="w100"
+                          style="height:calc(100% - 220px);color:red;font-family:Simsun,'Courier New'"></textarea>
             </aside>
         </div>
         <el-button @click="selectParent" v-if="parentLayout" class="float-bar" :style="floatPos">选中上级</el-button>
@@ -22,12 +23,13 @@
     import Vue from 'vue'
     import hzDesignTree from './hzDesignTree';
     import LayoutProps from './layoutProps';
-    import { InputNumber, Slider } from 'element-ui'
+    import { InputNumber, Slider, Input } from 'element-ui'
 
-    Vue.use(InputNumber).use(Slider)
+    Vue.use(InputNumber).use(Slider).use(Input)
     export default {
         props: {
             layout: Object,
+            showResult: Boolean,
         },
         data() {
             return {
@@ -35,41 +37,70 @@
                 floatPos: {},
             }
         },
+        watch: {
+            layout: {
+                immediate: true,
+                handler(n) {
+                    this.setParent(n, null)
+                }
+            }
+        },
         methods: {
+            setParent(node, parent) {
+                if (node) node.getParent = () => parent
+                if (node.children) {
+                    this.resolveFill(node.children)
+                    node.children.forEach(c => {
+                        this.setParent(c, node)
+                    })
+                }
+            },
+            resolveFill(layouts) {
+                const sizes = layouts.filter(layout => {
+                    layout.isFill = () => layout.laySize === 'fill' || layout.laySize.indexOf('calc(') > -1
+                    return !layout.isFill()
+                }).map(layout => layout.laySize)
+                layouts.filter(layout => layout.isFill()).map(layout => {
+                    layout.laySize = sizes.length ? ('calc(100% - ' + sizes.join(' - ') + ')') : '100%'
+                })
+                if (sizes < layouts.length - 1) console.warn('Only 1 `fill` laySize is allowed in children')
+                //if (!layout.laySize) layout.laySize = 'auto'
+            },
             selectArea(layout) {
                 if (this.curLayout) {
                     this.curLayout.ctnCls = ''
                     if (this.parentLayout) this.parentLayout.ctnCls = ''
                 }
-                layout.ctnCls = 'area_selected'
-                if (layout.getParent()) layout.getParent().ctnCls = 'child-selected'
+                this.$set(layout, 'ctnCls', 'area_selected')
+                if (layout.getParent()) this.$set(layout.getParent(), 'ctnCls', 'child_selected')
                 this.curLayout = layout
 
                 this.$nextTick(t => {
-                    this.$x('.area_selected > .compo-wrap').elDo(el => {
+                    const el = this.$el.querySelector('.area_selected > .compo-wrap');
+                    if (el) {
                         const rect = el.getBoundingClientRect()
                         this.floatPos = {
                             top: rect.top + 'px',
                             left: rect.left + el.clientWidth - 80 + 'px'
                         }
-                    })
+                    }
                 })
             },
             selectParent() {
                 this.selectArea(this.parentLayout)
             },
             resetLayout() {
-                this.$refs.dzTree.resetLayout()
+                this.setParent(this.layout, null)
             },
             getResult() {
-                return this.$refs.dzTree.getResult()
+                return this.$refs.dzTree.publicGetResult()
             },
         },
         computed: {
             parentLayout() {
                 return this.curLayout && this.curLayout.getParent()
             },
-            curArea() {
+            curSlot() {
                 return this.curLayout && this.curLayout.slot
             }
         },
@@ -90,7 +121,7 @@
         }
 
         ::v-deep {
-            .child-selected {
+            .child_selected {
                 background: #f9f9f8;
             }
 

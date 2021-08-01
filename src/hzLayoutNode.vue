@@ -1,11 +1,13 @@
 <template>
     <article v-if="isCompo" class="full pl-padding" :class="layout.ctnCls">
+        <!--        c{{level}}in:{{inSlots}}-{{layout.slot}}-->
         <div class="full compo-wrap">
             <slot v-if="$scopedSlots[layout.slot]" :name="layout.slot"
                   :layout="layout" :level="level" :index="index"
             ></slot>
-            <slot v-else></slot>
-            <div class="flex-center">No Component: {{layout.slot}}</div>
+            <slot v-else :layout="layout" :level="level" :index="index">
+                <div class="flex-center">No Component: {{layout.slot}}</div>
+            </slot>
         </div>
     </article>
 
@@ -14,20 +16,23 @@
              class="full pl-flex" :class="layout.ctnCls + (isVertical ? ' divide-v':' divide-h')"
     >
         <template v-for="(child,cIndex) in layout.children">
-            <!--            <slot :layout="child" :index="cIndex"/>-->
             <nav :key="cIndex"
                  class="sub-wrap"
                  :style="layStyles[cIndex]"
                  :class="clsClass(child, cIndex)"
             >
+                <!--                <div>{{level+1}}{{needSlots[cIndex]}}</div>-->
                 <hz-layout-node
                         :layout="child"
                         :level="level+1"
                         :classPath="clsClass(child, cIndex)+'-'"
                         :index="cIndex"
                 >
-                    <template v-for="subSlot in inSlots" :slot="subSlot" slot-scope="scope">
+                    <template v-for="subSlot in needSlots[cIndex]" :slot="subSlot" slot-scope="scope">
                         <slot :name="subSlot" v-bind="scope"/>
+                    </template>
+                    <template slot-scope="scope">
+                        <slot v-bind="scope"></slot>
                     </template>
                 </hz-layout-node>
             </nav>
@@ -53,10 +58,6 @@
             return {};
         },
         methods: {
-            getLayStyle(layout) {
-
-            },
-
             clsClass(layout, index) {
                 const cls = this.classPath || 'pl-'
                 return cls + (this.isVertical ? 'row' : 'col') + index
@@ -84,8 +85,11 @@
                     })
                 }
             },
-            subSlots() {
-                return sub(this.layout)
+            needSlots() {
+                const has = this.$scopedSlots
+                if (this.layout.children) {
+                    return this.layout.children.map(sub)
+                }
 
                 function sub(layout) {
                     if (layout.children) {
@@ -93,7 +97,7 @@
                         layout.children.map(c => r.push(...sub(c)))
                         return r
                     } else {
-                        return [layout.slot]
+                        return has[layout.slot] ? [layout.slot] : []
                     }
                 }
             },

@@ -53,6 +53,8 @@
 </template>
 
 <script>
+    import msg from '../../../../js/utils/msgDialog'
+
     export default {
         props: {
             layout: Object,
@@ -64,9 +66,11 @@
             }
         },
         watch: {
-            layout(layout) {
-                if (layout && layout.children)
-                    this.divideCount = layout.children.length
+            layout: {
+                immediate: true,
+                handler(layout) {
+                    this.divideCount = layout && layout.children ? layout.children.length : 2
+                }
             }
         },
         methods: {
@@ -93,17 +97,17 @@
 
                 const index = siblings.indexOf(this.layout)
                 if (index > -1) {
-                    this.$x.confirm(`确实要移除 "${this.layout.slot}" 区块吗？`)
+                    msg.confirm(`确实要移除 "${this.layout.slot}" 区块吗？`)
                         .then(t => {
                             siblings.splice(index, 1)
                             //选中下一个
                             const next = siblings[index] || siblings[index - 1]
                             this.parentCompo.selectArea(next)
-                        }).catch(this.$x.noop)
+                        }).catch(() => 0)
                 }
             },
             cancelDivide() {
-                this.$x.confirm(`确实要移除与 "${this.layout.slot}" 同级的【${this.parentLayout.children.length}个区块】吗？`)
+                msg.confirm(`确实要移除与 "${this.layout.slot}" 同级的【${this.parentLayout.children.length}个区块】吗？`)
                     .then(t => {
                         const parent = this.parentLayout
                         const sibling = parent.children.find(sibl => sibl !== this.layout)
@@ -119,6 +123,7 @@
                     })
             },
             resetLayout() {
+                debugger
                 this.parentCompo.resetLayout()
             },
             changeFill(isFill) {
@@ -126,13 +131,13 @@
                     let silbling = this.parentLayout.children.find(child => (!child.laySize || child.laySize === 'auto') && child != this.layout)
                     if (silbling) {
                         this.parentCompo.selectArea(silbling)
-                        return this.$x.toast.warning(`请先设置兄弟节点"${silbling.slot}"的大小`)
+                        return msg.toast.warning(`请先设置兄弟节点"${silbling.slot}"的大小`)
                     }
 
                     silbling = this.parentLayout.children.find(child => child.isFill() && child != this.layout)
                     if (silbling) {
                         this.parentCompo.selectArea(silbling)
-                        return this.$x.toast.warning(`请先取消兄弟节点"${silbling.slot}"的填充，并为它设置${this.laySizeText}`)
+                        return msg.toast.warning(`请先取消兄弟节点"${silbling.slot}"的填满属性，并为它设置${this.laySizeText}`)
                     }
 
                     this.layout.laySize = 'fill'
@@ -143,7 +148,7 @@
             },
             setLaySize(val) {
                 const old = this.layout.laySize
-                if (old === val) return
+                if (!val || parseInt(old) === val) return
                 if (old.match(/px$/)) this.layout.laySize = val + 'px'
                 else if (old === 'auto' || val > 0) {
                     this.layout.laySize = val + '%'
