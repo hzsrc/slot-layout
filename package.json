@@ -2,7 +2,7 @@
   "name": "slot-layout",
   "version": "1.0.1",
   "description": "A useful and easy layout component",
-  "private": true,
+  "private": false,
   "scripts": {
     "build": "cross-env NODE_ENV=production ENV_CONFIG=prod node build/build.js"
   },
