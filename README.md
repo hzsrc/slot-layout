@@ -1,7 +1,7 @@
 # slot-layout
 A useful and easy layout component
 
-#Components
+# Components
 
 ### SlotLayout
 Display a layout by a config object and slots. Used for runtime.
@@ -10,11 +10,11 @@ Display a layout by a config object and slots. Used for runtime.
 Design a layout config object. Used for development.
 
 
-#Usage:
+# Usage:
 This sample use `SlotLayout` and `LayoutDesigner` in one page.
 You can use only one of them.
 
-`````vue
+````vue
 <template>
     <div class="full">
         <layout-designer v-if="isDesign" class="full" :layout="layout" show-result></layout-designer>
@@ -79,11 +79,12 @@ You can use only one of them.
 </style>
 ````
 
-#Webpack:   
+# Webpack:   
 
 Need to add slot-layout's path to `include` list:
 
 ````js
+//webpack.config.js
 module.exports = {
     module: {
         rules: [
