@@ -89,9 +89,8 @@
     "email": "hz932@qq.com",
     "url": "http://www.hz300.com/slot-layout/"
   },
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "files": [
-    "src",
-    "dist"
+    "src"
   ]
 }

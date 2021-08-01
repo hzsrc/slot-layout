@@ -68,6 +68,7 @@
 
     .absolute {
         right: 0;
-        top: 0
+        top: 0;
+        color: #f66;
     }
 </style>
