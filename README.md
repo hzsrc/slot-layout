@@ -1,6 +1,6 @@
 # slot-layout
-A useful and easy layout component
-Click [] to preview.
+A useful and easy layout component.   
+Click [https://test.hz300.com/webpack4/#/layout](https://test.hz300.com/webpack4/#/layout) to preview.
 
 # Components
 
