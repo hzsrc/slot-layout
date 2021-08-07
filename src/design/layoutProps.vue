@@ -32,14 +32,14 @@
             <tr v-if="parentLayout ">
                 <td nowrap>{{laySizeText}}</td>
                 <td>
-                    <el-input v-model="layout.laySize" @change="resetLayout">
+                    <el-input v-model="layout.laySize" @change="resetLayout" :disabled="layout.isFill()">
                         <el-checkbox slot="append" :value="layout.isFill()"
                                      @input="changeFill" :disabled="!parentLayout"
                                      style="width:40px">填满
                         </el-checkbox>
                     </el-input>
                     <el-slider :disabled="layout.isFill()" :value="parseInt(layout.laySize)" @input="setLaySize"
-                               :max="layout.laySize.indexOf('px')>-1 ? 2560: 100" :show-tooltip="false"></el-slider>
+                               :max="layout.laySize.match(/%|vh|vw/i) ? 100: 2560" :show-tooltip="false"></el-slider>
                 </td>
             </tr>
             <tr>
@@ -78,7 +78,7 @@
                 const layout0 = this.layout //闭包缓存
                 const children = Array.apply(null, Array(this.divideCount)).map((n, i) => {
                     const child = {
-                        slot: 'Area' + (i + 1),
+                        slot: 'slot' + Math.random().toString().slice(2, 5),
                         ctnCls: '',
                     }
                     return Object.assign(child, layout0.children && layout0.children[i])
@@ -116,7 +116,6 @@
                             parent.isVertical = sibling.isVertical
                         } else {
                             parent.children = undefined
-                            parent.compoName = 'DesignArea'
                             //parent.slot = 'Area'
                         }
                         this.parentCompo.selectParent()
@@ -148,9 +147,11 @@
             setLaySize(val) {
                 const old = this.layout.laySize
                 if (!val || parseInt(old) === val) return
-                if (old.match(/px$/)) this.layout.laySize = val + 'px'
-                else if (old === 'auto' || val > 0) {
-                    this.layout.laySize = val + '%'
+                var v = /\d+(\w*)$/.exec(old)
+                var unit = v ? v[1] : 'px'
+                this.layout.laySize = val + unit
+
+                if (old === 'auto' || val > 0) {
                     //自动设置相邻的auto为自动填满
                     const siblings = this.parentLayout.children
                     if (siblings && !siblings.find(sibling => sibling.isFill())) {
@@ -174,5 +175,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+    .el-slider {
+        overflow: hidden;
+    }
 </style>

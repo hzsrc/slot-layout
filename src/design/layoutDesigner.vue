@@ -9,10 +9,14 @@
             >
             </hz-design-tree>
             <aside v-if="curLayout">
-                <h3>调整布局 - {{curSlot}}</h3>
-                <layout-props :layout="curLayout" :parentLayout="parentLayout" class="lay-props"/>
+                <h3 class="pd-10">调整布局 - {{curSlot}}</h3>
+                <div v-if="parentLayout" class="sibln pd-10">
+                    <label>同级节点：</label>
+                    <a v-for="(c,ci) in parentLayout.children" @click="selectArea(c)">{{c.slot || '[ ' + ci + ' ]'}}</a>
+                </div>
+                <layout-props :layout="curLayout" :parentLayout="parentLayout" class="pd-10 lay-props"/>
                 <textarea v-if="showResult" v-html="JSON.stringify(getResult(), 0,3)" class="w100"
-                          style="height:calc(100% - 220px);color:red;font-family:Simsun,'Courier New'"></textarea>
+                          style="height:calc(100% - 277px);color:red;font-family:Simsun,'Courier New';box-sizing: border-box"></textarea>
             </aside>
         </div>
         <el-button @click="selectParent" v-if="parentLayout" class="float-bar" :style="floatPos">选中上级</el-button>
@@ -121,22 +125,10 @@
         }
 
         ::v-deep {
-            .child_selected {
-                background: #f9f9f8;
-            }
-
             .area_selected {
                 background: #ddebff;
             }
         }
-    }
-
-    .lay-props {
-        padding: 10px 0 10px 20px;
-    }
-
-    h3 {
-        padding-left: 20px;
     }
 
     /*.lay-props {*/
@@ -149,5 +141,12 @@
 
     .float-bar {
         position: fixed;
+    }
+    .sibln a{
+        margin-right: 10px;
+        padding: 3px 5px;
+        background: #ddebff;
+        border-radius: 5px;
+        white-space: nowrap;
     }
 </style>

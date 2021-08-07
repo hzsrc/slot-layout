@@ -6,9 +6,44 @@ A useful and easy layout component
 ### SlotLayout
 Display a layout by a config object and slots. Used for runtime.
 
+##### Props:
+* layout: { slot: string, laySize: string, isVertical: bool, children: Array\<Layout> }
+
+  This `layout` prop is a tree structure, which use `children` prop as sub nodes, sub nodes is the same type. 
+
+  Leaf-node means a node that don't have a `children` field. Container-node means a node that have a `children` field.
+  
+  Layout Fields:
+  * `slot`: string   
+    The slot name of a leaf-node, which is used for placing a vue slot. Default value is 'default'.
+  * `isVertical`: boolean     
+    Used for a container-node to indicate how to split this layout box. 
+  * `laySize`: string  
+    Set the box's width or height. It can be any css size, like `200px`
+  * `children`: Array\<Layout>  
+    Set the box's width or height for a container-node.
+    
+##### Slots:
+* default   
+  When a layout node can't find a same named slot, it will use this default slot.
+* [other slots]    
+  You can use any named slot, this component will find layout node which has a same `slot` field value, and place the slot elements into the layout node. 
+  
 ### LayoutDesigner
 Design a layout config object. Used for development.
+##### Props:
+* layout: Layout  
+The same as `SlotLayout` component.
+* showResult: boolean  
+Whether it shows a textarea with current layout value.
+##### Slots:
+* default.
 
+### HzLayoutNode
+The Layout node component (only for advanced use).
+##### Props:
+* layout: Layout  
+The same as `SlotLayout` component.
 
 # Usage:
 This sample use `SlotLayout` and `LayoutDesigner` in one page.
@@ -40,7 +75,7 @@ You can use only one of them.
                     laySize: '100%',
                     children: [
                         {
-                            laySize: '200px',
+                            laySize: '15vw',
                             slot: 'tree',
                         },
                         {
@@ -60,7 +95,11 @@ You can use only one of them.
                                     laySize: 'fill',
                                 }
                             ]
-                        }
+                        },
+                        {
+                            laySize: '100px',
+                            slot: 'right',
+                        },
                     ]
                 }
             }

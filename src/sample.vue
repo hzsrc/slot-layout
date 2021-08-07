@@ -5,6 +5,7 @@
             <aside slot="tree" class="flex-center">aside</aside>
             <header slot="top" class="flex-center">header</header>
             <h3 slot="title" class="flex-center">title</h3>
+            <div slot="right" class="flex-center">right</div>
             <div slot="bottom" class="flex-center">bottom</div>
         </slot-layout>
         <a class="absolute" @click="isDesign=!isDesign">{{isDesign ? '运行布局' : '设计布局'}}</a>
@@ -25,7 +26,7 @@
                     laySize: '100%',
                     children: [
                         {
-                            laySize: '200px',
+                            laySize: '15vw',
                             slot: 'tree',
                         },
                         {
@@ -45,7 +46,11 @@
                                     laySize: 'fill',
                                 }
                             ]
-                        }
+                        },
+                        {
+                            laySize: '100px',
+                            slot: 'right',
+                        },
                     ]
                 }
             }
