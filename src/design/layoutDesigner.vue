@@ -1,11 +1,11 @@
 <template>
     <section>
-        <div class="full-ctn">
+        <div class="hz-ctn">
             <hz-design-tree
-                    ref="dzTree"
-                    :layout="layout"
-                    class="dz-ctn"
-                    @selectArea="selectArea"
+                ref="dzTree"
+                :layout="layout"
+                class="dz-ctn"
+                @selectArea="selectArea"
             >
             </hz-design-tree>
             <aside v-if="curLayout">
@@ -19,7 +19,7 @@
                 </div>
                 <layout-props :layout="curLayout" :parentLayout="parentLayout" class="pd-10 lay-props"/>
                 <slot></slot>
-                <textarea v-if="showResult" v-html="JSON.stringify(getResult(), 0,3)" class="w100"
+                <textarea v-if="showResult" v-html="getLayStr()" class="w100"
                           style="height:calc(100% - 277px);color:red;font-family:Simsun,'Courier New';box-sizing: border-box"></textarea>
             </aside>
         </div>
@@ -103,6 +103,28 @@
             getResult() {
                 return this.$refs.dzTree.publicGetResult()
             },
+            getLayStr() {
+                var json = JSON.stringify(this.getResult(), 0, 3)
+                var tag = 'script'
+                return `<template>
+    <slot-layout :layout="layout" gulp="5px">
+        <aside slot="tree" class="flex-center">aside</aside>
+        <header slot="top" class="flex-center">header</header>
+        <h3 slot="title" class="flex-center">title</h3>
+        <div slot="right" class="flex-center">right</div>
+        <div slot="bottom" class="flex-center">bottom</div>
+    </slot-layout>
+</template>
+<${tag}>
+export default {
+    data(){
+        return {
+            layout: '${json.replace(/\n/g, '\n            ')}'
+        }
+    }
+}
+</${tag}>`
+            }
         },
         computed: {
             parentLayout() {
@@ -121,6 +143,19 @@
 
 <style lang="scss" scoped>
     @import "../slot-layout.scss";
+
+    .hz-ctn {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+
+        > * {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+    }
 
     .dz-ctn {
         width: calc(100% - 30%);
