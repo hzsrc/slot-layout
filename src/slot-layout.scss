@@ -1,0 +1,25 @@
+.pd-10 {
+    padding: 10px;
+}
+.full {
+    height: 100%;
+    width: 100%;
+}
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+.full-ctn {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.w100 {
+    width: 100%;
+}

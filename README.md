@@ -1,5 +1,6 @@
 # slot-layout
 A useful and easy layout component
+Click [] to preview.
 
 # Components
 

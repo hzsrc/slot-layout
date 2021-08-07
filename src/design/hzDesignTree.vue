@@ -40,6 +40,8 @@
 </script>
 
 <style scoped lang="scss">
+    @import "../slot-layout.scss";
+
     .dz-layout ::v-deep {
         .compo-wrap {
             border: 1px solid #ddd;

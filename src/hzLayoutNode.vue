@@ -115,6 +115,8 @@
 </script>
 
 <style scoped lang="scss">
+    @import "slot-layout.scss";
+
     .pl-flex {
         display: flex;
         overflow: auto;

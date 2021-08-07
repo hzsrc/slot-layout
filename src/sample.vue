@@ -63,6 +63,8 @@
 </script>
 
 <style scoped lang="scss">
+    @import "slot-layout.scss";
+
     ::v-deep {
 
         .compo-wrap {
@@ -72,6 +74,7 @@
     }
 
     .absolute {
+        position: absolute;
         right: 0;
         top: 0;
         color: #f66;

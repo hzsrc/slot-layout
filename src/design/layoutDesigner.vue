@@ -120,6 +120,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "../slot-layout.scss";
+
     .dz-ctn {
         width: calc(100% - 30%);
 

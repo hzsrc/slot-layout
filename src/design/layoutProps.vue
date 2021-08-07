@@ -50,7 +50,10 @@
 
 <script>
     import msg from './msgDialog'
+    import Vue from 'vue'
+    import { Checkbox, Input, Slider, Button } from 'element-ui'
 
+    Vue.use(Checkbox).use(Input).use(Slider).use(Button)
     export default {
         props: {
             layout: Object,
