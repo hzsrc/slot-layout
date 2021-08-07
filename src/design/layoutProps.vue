@@ -1,31 +1,27 @@
 <template>
     <div>
-        <table>
-            <tr>
-                <td>
+        <section>
+            <nav style="padding-bottom: 10px">
+                <div>
+                    拆分：
                     <el-input-number title="输入要拆分成的份数" v-model="divideCount" style="width:90px" :min="2">
-                    </el-input-number>
-                </td>
-                <td>
+                    </el-input-number> &nbsp;
+
                     <el-button @click="divideCur(false)" :disabled="layout.children && layout.isVertical">水平拆分
                     </el-button>
-                </td>
-                <td>
+
                     <el-button @click="divideCur(true)" :disabled="layout.children && !layout.isVertical">垂直拆分
                     </el-button>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
+                </div>
+            </nav>
+            <nav>
+                <div>合并：
                     <el-button @click="removeDivide" :disabled="!parentLayout || parentLayout.children.length<=2">移除选中
                     </el-button>
-                </td>
-                <td>
                     <el-button @click="cancelDivide" :disabled="!parentLayout">同级合并</el-button>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </nav>
+        </section>
 
         <hr/>
         <table>
@@ -177,5 +173,9 @@
 <style lang="scss" scoped>
     .el-slider {
         overflow: hidden;
+    }
+
+    nav {
+        display: flex;
     }
 </style>

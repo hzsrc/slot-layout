@@ -9,12 +9,16 @@
             >
             </hz-design-tree>
             <aside v-if="curLayout">
-                <h3 class="pd-10">调整布局 - {{curSlot}}</h3>
+                <h3 class="pd-10">
+                    调整布局 - {{curSlot}}
+                    <hr/>
+                </h3>
                 <div v-if="parentLayout" class="sibln pd-10">
                     <label>同级节点：</label>
                     <a v-for="(c,ci) in parentLayout.children" @click="selectArea(c)">{{c.slot || '[ ' + ci + ' ]'}}</a>
                 </div>
                 <layout-props :layout="curLayout" :parentLayout="parentLayout" class="pd-10 lay-props"/>
+                <slot></slot>
                 <textarea v-if="showResult" v-html="JSON.stringify(getResult(), 0,3)" class="w100"
                           style="height:calc(100% - 277px);color:red;font-family:Simsun,'Courier New';box-sizing: border-box"></textarea>
             </aside>
@@ -142,7 +146,8 @@
     .float-bar {
         position: fixed;
     }
-    .sibln a{
+
+    .sibln a {
         margin-right: 10px;
         padding: 3px 5px;
         background: #ddebff;
