@@ -128,13 +128,13 @@
                     let silbling = this.parentLayout.children.find(child => (!child.laySize || child.laySize === 'auto') && child != this.layout)
                     if (silbling) {
                         this.parentCompo.selectArea(silbling)
-                        return msg.toast.warning(`请先设置兄弟节点"${silbling.slot}"的大小`)
+                        return msg.toast.warning(`请先设置兄弟节点"${silbling.slot || ''}"的大小`)
                     }
 
                     silbling = this.parentLayout.children.find(child => child.isFill() && child != this.layout)
                     if (silbling) {
                         this.parentCompo.selectArea(silbling)
-                        return msg.toast.warning(`请先取消兄弟节点"${silbling.slot}"的填满属性，并为它设置${this.laySizeText}`)
+                        return msg.toast.warning(`请先取消兄弟节点"${silbling.slot || ''}"的填满属性，并为它设置${this.laySizeText}`)
                     }
 
                     this.layout.laySize = 'fill'
