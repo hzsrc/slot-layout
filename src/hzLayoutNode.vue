@@ -6,7 +6,7 @@
                   :layout="layout" :level="level" :index="index"
             ></slot>
             <slot v-else :layout="layout" :level="level" :index="index">
-                <div class="flex-center">No Component: {{layout.slot}}</div>
+                <div class="f-center">No Component: {{layout.slot}}</div>
             </slot>
         </div>
     </article>

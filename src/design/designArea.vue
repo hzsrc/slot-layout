@@ -1,6 +1,6 @@
 <template>
     <div class="full" v-if="layout" @click.stop="selectArea">
-        <div class="full flex-center flex-column">
+        <div class="full f-center f-column">
             <div>{{layout.slot}}</div>
         </div>
     </div>

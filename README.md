@@ -55,10 +55,10 @@ You can use only one of them.
     <div class="full">
         <layout-designer v-if="isDesign" class="full" :layout="layout" show-result></layout-designer>
         <slot-layout v-else class="full pd-10" :layout="layout" gulp="5px">
-            <aside slot="tree" class="flex-center">aside</aside>
-            <header slot="top" class="flex-center">header</header>
-            <h3 slot="title" class="flex-center">title</h3>
-            <div slot="bottom" class="flex-center">bottom</div>
+            <aside slot="tree" class="f-center">aside</aside>
+            <header slot="top" class="f-center">header</header>
+            <h3 slot="title" class="f-center">title</h3>
+            <div slot="bottom" class="f-center">bottom</div>
         </slot-layout>
         <a class="absolute" @click="isDesign=!isDesign">{{isDesign ? '运行布局' : '设计布局'}}</a>
     </div>

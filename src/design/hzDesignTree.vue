@@ -1,7 +1,7 @@
 <template>
     <slot-layout class="dz-layout pd-10" :layout="layout" gulp="5px">
         <div slot-scope="{layout}" class="full" @click.stop="selectArea(layout)">
-            <div class="full flex-center flex-column">
+            <div class="full f-center f-column">
                 <div>{{layout.slot}}</div>
             </div>
         </div>
