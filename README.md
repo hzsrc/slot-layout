@@ -7,6 +7,20 @@ Click [https://test.hz300.com/webpack4/#/layout](https://test.hz300.com/webpack4
 ### SlotLayout
 Display a layout by a config object and slots. Used for runtime.
 
+## 特性 -- features
+* 通过js布局对象，完全控制页面布局。
+* 特别适合用于低代码平台系统，只需在运行时按照需要动态传入一个布局配置对象，即可随意调整页面布局。无需预先编写布局代码。
+* 支持多层布局嵌套，可实现任意数目、任意层次的布局。
+* 支持任意长度单位，如px、vw、%、rem。
+* 支持填充式布局。即区块填充满父容器。
+* 组件自带布局配置功能，可轻松实现布局设计。
+<img src="https://segmentfault.com/img/bVcUEMZ"/>
+
+## 运行效果图 -- preview
+动态显示及调整布局：
+<img src="https://segmentfault.com/img/bVcUENv"/>
+
+
 ##### Props:
 * layout: { slot: string, laySize: string, isVertical: bool, children: Array\<Layout> }
 
