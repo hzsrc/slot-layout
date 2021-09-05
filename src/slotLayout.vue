@@ -3,6 +3,10 @@
 
     export default {
         name: 'slot-layout',
+        install(Vue) {
+            Vue.component('slot-layout', this)
+            Vue.component('layout-node', hzLayoutNode)
+        },
         props: {
             layout: Object,
             gulp: String,

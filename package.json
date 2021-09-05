@@ -1,10 +1,11 @@
 {
   "name": "slot-layout",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A useful and easy layout component",
   "private": false,
   "scripts": {
-    "build": "cross-env NODE_ENV=production ENV_CONFIG=prod node build/build.js"
+    "build": "cross-env NODE_ENV=production ENV_CONFIG=prod node build/build.js",
+    "prepublish": "npm run build"
   },
   "dependencies": {
   },
@@ -88,8 +89,9 @@
     "email": "hz932@qq.com",
     "url": "http://www.hz300.com/slot-layout/"
   },
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "files": [
-    "src"
+    "src",
+    "dist"
   ]
 }
