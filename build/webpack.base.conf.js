@@ -19,11 +19,6 @@ module.exports = {
             '@': resolve('src')
         }
     },
-    externals: {
-        'vue': 'Vue',
-        'element-ui': 'ELEMENT',
-        'axios': 'axios',
-    },
     module: {
         rules: [
             /* {

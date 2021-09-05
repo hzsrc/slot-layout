@@ -8,7 +8,7 @@
                 @selectArea="selectArea"
             >
             </hz-design-tree>
-            <aside v-if="curLayout">
+            <aside v-if="curLayout" class="auto-bar">
                 <h3 class="pd-10">
                     调整布局 - {{curSlot}}
                     <hr/>

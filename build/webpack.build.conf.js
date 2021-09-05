@@ -26,6 +26,11 @@ var entry = {
 }
 var webpackConfig = merge(baseWebpackConfig, {
     entry,
+    externals: {
+        'vue': 'Vue',
+        'element-ui': 'ELEMENT',
+        'axios': 'axios',
+    },
     output: {
         path: config.build.assetsRoot,
         filename: '[name].js',

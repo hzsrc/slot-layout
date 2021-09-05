@@ -1,12 +1,14 @@
 <template>
-    <div>
+    <div class="full">
         <layout-designer v-if="isDesign" class="full" :layout="layout" show-result></layout-designer>
         <slot-layout v-else class="full pd-10" :layout="layout" gulp="5px">
-            <aside slot="tree" class="f-center">aside</aside>
-            <header slot="top" class="f-center">header</header>
-            <h3 slot="title" class="f-center">title</h3>
-            <div slot="right" class="f-center">right</div>
-            <div slot="bottom" class="f-center">bottom</div>
+            <aside slot="tree" class="full f-center tree">aside</aside>
+            <header slot="top" class="full f-center">header</header>
+            <nav slot="title" class="full f-center">
+                <button @click="resetLayout">动态调整布局</button>
+            </nav>
+            <div slot="right" class="full f-center">right</div>
+            <div slot="bottom" class="full f-center">bottom</div>
         </slot-layout>
         <a class="absolute" @click="isDesign=!isDesign">{{isDesign ? '运行布局' : '设计布局'}}</a>
     </div>
@@ -26,7 +28,7 @@
                     laySize: '100%',
                     children: [
                         {
-                            laySize: '15vw',
+                            laySize: '10vw',
                             slot: 'tree',
                         },
                         {
@@ -55,6 +57,12 @@
                 }
             }
         },
+        methods: {
+            resetLayout() {
+                this.layout.children.reverse()
+                this.layout.children[1].children.reverse()
+            }
+        },
         components: {
             LayoutDesigner,
             slotLayout
@@ -79,4 +87,11 @@
         top: 0;
         color: #f66;
     }
+
+    .tree {
+        background: #abc;
+    }
+</style>
+<style>
+
 </style>

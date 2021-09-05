@@ -1,3 +1,4 @@
+var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')
 var config = require('../config')
@@ -9,14 +10,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 process.title = 'portal-components';
 
-// add hot-reload related code to entry chunks
-baseWebpackConfig.entry = {
-    main: ['./build/dev-client', './dev/dev.js']
-}
-
 var pagesPath = path.resolve(__dirname, '../src')
 var entry = {
-    index: pagesPath + '/dev.vue',
+    index: ['./build/dev-client', pagesPath + '/dev/dev.js']
 }
 module.exports = merge(baseWebpackConfig, {
     entry,
@@ -27,11 +23,21 @@ module.exports = merge(baseWebpackConfig, {
         publicPath: config.dev.assetsPublicPath
     },
     module: {
-        rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, extract: false })
+        rules: [
+            ...utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, extract: false }),
+            {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 10000,
+                    name: utils.assetsPath('font/[name].[hash:7].[ext]')
+                }
+            }
+        ]
     },
     devtool: false, // see SourceMapDevToolPlugin
     plugins: [
-    // https://webpack.js.org/plugins/source-map-dev-tool-plugin/
+        // https://webpack.js.org/plugins/source-map-dev-tool-plugin/
         new webpack.SourceMapDevToolPlugin(),
         // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
         new webpack.HotModuleReplacementPlugin(),
@@ -41,8 +47,8 @@ module.exports = merge(baseWebpackConfig, {
 
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'tpl.html',
-            chunks: ['main'],
+            template: 'public/index.html',
+            chunks: ['index'],
             inject: true,
             // minify: {
             //     removeComments: true,

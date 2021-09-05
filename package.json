@@ -1,9 +1,10 @@
 {
   "name": "slot-layout",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A useful and easy layout component",
   "private": false,
   "scripts": {
+    "dev": "cross-env NODE_ENV=development ENV_CONFIG=dev node build/dev-server.js --mock",
     "build": "cross-env NODE_ENV=production ENV_CONFIG=prod node build/build.js",
     "prepublish": "npm run build"
   },
